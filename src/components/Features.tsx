@@ -1,35 +1,35 @@
 import {
-  IconCollaboration,
-  IconProgress,
-  IconProjects,
-  IconTasks,
+  IconBrain,
+  IconScale,
+  IconUsers,
+  IconZap,
 } from "@/components/icons";
 import { SECTIONS } from "@/lib/sections";
 
 const features = [
   {
-    icon: IconProjects,
-    title: "Projects, organized",
+    icon: IconBrain,
+    title: "Intelligent by Design",
     description:
-      "Keep projects, milestones, and deliverables structured in one clear workspace.",
+      "AI-native experiences designed around real user needs, not technology for technology's sake.",
   },
   {
-    icon: IconTasks,
-    title: "Tasks that stay on track",
+    icon: IconScale,
+    title: "Built to Scale",
     description:
-      "Create priorities, assign owners, and see exactly what needs attention next.",
+      "Modern architecture and engineering practices designed to grow with your product.",
   },
   {
-    icon: IconCollaboration,
-    title: "Built for collaboration",
+    icon: IconUsers,
+    title: "Human-Centered",
     description:
-      "Keep conversations, updates, and work context connected instead of scattered across tools.",
+      "Clear interfaces and thoughtful interactions that make complex technology feel simple.",
   },
   {
-    icon: IconProgress,
-    title: "Progress at a glance",
+    icon: IconZap,
+    title: "Fast & Reliable",
     description:
-      "Understand project health and team progress without digging through spreadsheets.",
+      "Performance, accessibility, and reliability are considered from the first line of code.",
   },
 ];
 
@@ -46,10 +46,11 @@ export function Features() {
             id="features-heading"
             className="text-balance text-3xl font-semibold tracking-tight sm:text-4xl"
           >
-            Features
+            Built for intelligent growth.
           </h2>
           <p className="mt-4 text-base leading-relaxed text-muted sm:text-lg">
-            Everything your team needs to stay in flow.
+            We combine thoughtful product design with modern engineering to build
+            digital experiences that are fast, adaptable, and ready to scale.
           </p>
         </div>
 
