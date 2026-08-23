@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/Button";
-import { CONTACT_MAILTO, SECTIONS } from "@/lib/sections";
+import { SECTIONS } from "@/lib/sections";
 
 export function CtaSection() {
   return (
     <section
-      id={SECTIONS.contact}
+      id={SECTIONS.cta}
       aria-labelledby="cta-heading"
       className="section-anchor section-spacing"
     >
@@ -20,15 +20,14 @@ export function CtaSection() {
               id="cta-heading"
               className="text-balance text-[1.75rem] font-semibold leading-tight tracking-[-0.02em] sm:text-4xl"
             >
-              Let&apos;s build what&apos;s next.
+              Ready to get work moving?
             </h2>
             <p className="mt-4 text-[0.9375rem] leading-[1.65] text-muted sm:text-lg sm:leading-relaxed">
-              Have a complex idea worth simplifying? Let&apos;s turn it into a
-              product people want to use.
+              Bring your projects, tasks, and team into one focused workspace.
             </p>
             <div className="mt-8">
-              <Button href={CONTACT_MAILTO} size="lg">
-                Start a conversation
+              <Button href={`#${SECTIONS.pricing}`} size="lg">
+                Get started
               </Button>
             </div>
           </div>

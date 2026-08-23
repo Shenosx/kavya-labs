@@ -1,13 +1,13 @@
 const metrics = [
-  { label: "AI-first", description: "Intelligence at the core" },
-  { label: "Built to scale", description: "Architecture that grows" },
-  { label: "Human-centered", description: "Designed for clarity" },
+  { label: "Projects & tasks", description: "Organized in one workspace" },
+  { label: "Built for teams", description: "Collaborate with clarity" },
+  { label: "Progress tracking", description: "See what needs attention" },
 ];
 
 export function TrustStrip() {
   return (
     <section
-      aria-label="Company highlights"
+      aria-label="Product highlights"
       className="border-y border-border bg-surface/40"
     >
       <div className="section-container py-7 sm:py-9">

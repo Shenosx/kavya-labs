@@ -2,7 +2,9 @@ import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { TrustStrip } from "@/components/TrustStrip";
 import { Features } from "@/components/Features";
-import { VisualStory } from "@/components/VisualStory";
+import { HowItWorks } from "@/components/HowItWorks";
+import { Pricing } from "@/components/Pricing";
+import { Testimonials } from "@/components/Testimonials";
 import { CtaSection } from "@/components/CtaSection";
 import { Footer } from "@/components/Footer";
 
@@ -20,7 +22,9 @@ export default function Home() {
         <Hero />
         <TrustStrip />
         <Features />
-        <VisualStory />
+        <HowItWorks />
+        <Pricing />
+        <Testimonials />
         <CtaSection />
       </main>
       <Footer />

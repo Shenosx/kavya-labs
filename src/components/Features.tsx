@@ -1,35 +1,35 @@
 import {
-  IconBrain,
-  IconScale,
-  IconUsers,
-  IconZap,
+  IconCollaboration,
+  IconProgress,
+  IconProjects,
+  IconTasks,
 } from "@/components/icons";
 import { SECTIONS } from "@/lib/sections";
 
 const features = [
   {
-    icon: IconBrain,
-    title: "Intelligent by Design",
+    icon: IconProjects,
+    title: "Projects, organized",
     description:
-      "AI-native experiences designed around real user needs, not technology for technology's sake.",
+      "Keep projects, milestones, and deliverables structured in one clear workspace.",
   },
   {
-    icon: IconScale,
-    title: "Built to Scale",
+    icon: IconTasks,
+    title: "Tasks that stay on track",
     description:
-      "Modern architecture and engineering practices designed to grow with your product.",
+      "Create priorities, assign owners, and see exactly what needs attention next.",
   },
   {
-    icon: IconUsers,
-    title: "Human-Centered",
+    icon: IconCollaboration,
+    title: "Built for collaboration",
     description:
-      "Clear interfaces and thoughtful interactions that make complex technology feel simple.",
+      "Keep conversations, updates, and work context connected instead of scattered across tools.",
   },
   {
-    icon: IconZap,
-    title: "Fast & Reliable",
+    icon: IconProgress,
+    title: "Progress at a glance",
     description:
-      "Performance, accessibility, and reliability are considered from the first line of code.",
+      "Understand project health and team progress without digging through spreadsheets.",
   },
 ];
 
@@ -46,11 +46,10 @@ export function Features() {
             id="features-heading"
             className="text-balance text-3xl font-semibold tracking-tight sm:text-4xl"
           >
-            Built for intelligent growth.
+            Features
           </h2>
           <p className="mt-4 text-base leading-relaxed text-muted sm:text-lg">
-            We combine thoughtful product design with modern engineering to build
-            digital experiences that are fast, adaptable, and ready to scale.
+            Everything your team needs to stay in flow.
           </p>
         </div>
 

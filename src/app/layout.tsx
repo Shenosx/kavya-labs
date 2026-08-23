@@ -9,29 +9,30 @@ const plusJakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Kavya Labs — Intelligence, engineered for what's next",
+  title: "TaskFlow — Move work forward, without the busywork.",
   description:
-    "Kavya Labs builds intelligent digital products that turn complex problems into simple, scalable experiences.",
+    "TaskFlow is a focused project management workspace for teams to organize tasks, collaborate clearly, and keep work moving.",
   keywords: [
-    "Kavya Labs",
-    "AI systems",
-    "digital products",
-    "intelligent software",
-    "product engineering",
+    "TaskFlow",
+    "project management",
+    "task management",
+    "team collaboration",
+    "SaaS",
+    "productivity",
   ],
   openGraph: {
-    title: "Kavya Labs — Intelligence, engineered for what's next",
+    title: "TaskFlow — Move work forward, without the busywork.",
     description:
-      "Kavya Labs builds intelligent digital products that turn complex problems into simple, scalable experiences.",
+      "TaskFlow is a focused project management workspace for teams to organize tasks, collaborate clearly, and keep work moving.",
     type: "website",
     locale: "en_US",
-    siteName: "Kavya Labs",
+    siteName: "TaskFlow",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kavya Labs — Intelligence, engineered for what's next",
+    title: "TaskFlow — Move work forward, without the busywork.",
     description:
-      "Kavya Labs builds intelligent digital products that turn complex problems into simple, scalable experiences.",
+      "TaskFlow is a focused project management workspace for teams to organize tasks, collaborate clearly, and keep work moving.",
   },
 };
 

@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { LogoMark, IconMenu, IconClose } from "@/components/icons";
-import { NAV_LINKS, SECTIONS } from "@/lib/sections";
+import { NAV_LINKS, PRODUCT_NAME, SECTIONS } from "@/lib/sections";
 
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -49,17 +49,17 @@ export function Navbar() {
         aria-label="Main navigation"
       >
         <a
-          href={`#${SECTIONS.top}`}
+          href={`#${SECTIONS.hero}`}
           className="group flex items-center gap-2.5 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-          aria-label="Kavya Labs — back to top"
+          aria-label={`${PRODUCT_NAME} — back to top`}
         >
           <LogoMark className="h-8 w-8 transition-transform duration-300 group-hover:scale-105" />
           <span className="text-base font-semibold tracking-tight text-foreground">
-            Kavya Labs
+            {PRODUCT_NAME}
           </span>
         </a>
 
-        <ul className="hidden items-center gap-8 md:flex">
+        <ul className="hidden items-center gap-7 lg:flex xl:gap-8">
           {NAV_LINKS.map((link) => (
             <li key={link.label}>
               <a href={link.href} className="nav-link">
@@ -70,8 +70,8 @@ export function Navbar() {
         </ul>
 
         <div className="hidden md:block">
-          <Button href={`#${SECTIONS.contact}`} size="sm">
-            Get Started
+          <Button href={`#${SECTIONS.cta}`} size="sm">
+            Get started
           </Button>
         </div>
 
@@ -127,11 +127,11 @@ export function Navbar() {
             ))}
             <li className="pt-2">
               <Button
-                href={`#${SECTIONS.contact}`}
+                href={`#${SECTIONS.cta}`}
                 className="w-full"
                 onClick={closeMobileMenu}
               >
-                Get Started
+                Get started
               </Button>
             </li>
           </ul>
