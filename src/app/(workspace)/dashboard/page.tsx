@@ -1,10 +1,7 @@
 import { auth } from "@/auth";
-
-const summaryCards = [
-  { label: "Active projects", value: "6" },
-  { label: "Open tasks", value: "18" },
-  { label: "Completed tasks", value: "42" },
-];
+import { DashboardSummaryCards } from "@/components/workspace/DashboardSummaryCards";
+import { getDashboardSummaryWithSeed } from "@/lib/tasks-db";
+import { requireAuthenticatedUser } from "@/lib/auth-user";
 
 const recentActivity = [
   {
@@ -33,6 +30,38 @@ export default async function DashboardPage() {
   const session = await auth();
   const firstName = session?.user?.name?.split(" ")[0] ?? "there";
 
+  let summaryCards = [
+    { label: "Active projects", value: "0", href: "/projects?filter=active" },
+    { label: "Open tasks", value: "0", href: "/tasks?filter=open" },
+    { label: "Completed tasks", value: "0", href: "/tasks?filter=done" },
+  ];
+
+  try {
+    const user = await requireAuthenticatedUser();
+    if (user) {
+      const summary = await getDashboardSummaryWithSeed(user.id);
+      summaryCards = [
+        {
+          label: "Active projects",
+          value: String(summary.activeProjects),
+          href: "/projects?filter=active",
+        },
+        {
+          label: "Open tasks",
+          value: String(summary.openTasks),
+          href: "/tasks?filter=open",
+        },
+        {
+          label: "Completed tasks",
+          value: String(summary.completedTasks),
+          href: "/tasks?filter=done",
+        },
+      ];
+    }
+  } catch {
+    // Keep zero values if the database is unavailable.
+  }
+
   return (
     <div className="space-y-8">
       <section aria-labelledby="dashboard-welcome-heading">
@@ -51,18 +80,7 @@ export default async function DashboardPage() {
         <h2 id="summary-heading" className="sr-only">
           Workspace summary
         </h2>
-        <ul className="grid gap-4 sm:grid-cols-3">
-          {summaryCards.map((card) => (
-            <li key={card.label}>
-              <article className="rounded-xl border border-border bg-surface-elevated/40 p-5 transition-all duration-300 hover:border-accent/25 hover:bg-surface-elevated/70 hover:shadow-soft">
-                <p className="text-sm text-muted">{card.label}</p>
-                <p className="mt-2 text-3xl font-semibold tracking-tight text-foreground">
-                  {card.value}
-                </p>
-              </article>
-            </li>
-          ))}
-        </ul>
+        <DashboardSummaryCards cards={summaryCards} />
       </section>
 
       <section aria-labelledby="activity-heading">

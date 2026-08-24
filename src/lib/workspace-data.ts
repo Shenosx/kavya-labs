@@ -148,12 +148,23 @@ export const DEMO_TASKS: DemoTask[] = [
   },
 ];
 
-export function formatWorkspaceDate(iso: string): string {
+export function formatWorkspaceDate(iso: string | null | undefined): string {
+  if (!iso) return "—";
   return new Date(iso).toLocaleDateString("en-US", {
     month: "short",
     day: "numeric",
     year: "numeric",
   });
+}
+
+/** Normalize DB/API due dates to YYYY-MM-DD for date inputs and comparisons. */
+export function normalizeTaskDueDate(value: string | null | undefined): string | null {
+  if (value == null || value === "") {
+    return null;
+  }
+
+  const match = String(value).trim().match(/^(\d{4}-\d{2}-\d{2})/);
+  return match ? match[1] : null;
 }
 
 export const PROJECT_STATUS_STYLES: Record<ProjectStatus, string> = {
