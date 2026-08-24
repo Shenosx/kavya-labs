@@ -8,9 +8,9 @@ import type { SessionUser } from "@/lib/auth-routes";
 
 const navItems = [
   { label: "Overview", href: "/dashboard" },
-  { label: "Projects", href: "/dashboard#projects" },
-  { label: "Tasks", href: "/dashboard#tasks" },
-  { label: "Settings", href: "/dashboard#settings" },
+  { label: "Projects", href: "/projects" },
+  { label: "Tasks", href: "/tasks" },
+  { label: "Settings", href: "/settings" },
 ];
 
 type DashboardShellProps = {

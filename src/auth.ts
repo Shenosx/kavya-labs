@@ -15,9 +15,15 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
-      const isDashboard = nextUrl.pathname.startsWith("/dashboard");
+      const pathname = nextUrl.pathname;
+      const isProtected =
+        pathname.startsWith("/dashboard") ||
+        pathname.startsWith("/admin") ||
+        pathname.startsWith("/projects") ||
+        pathname.startsWith("/tasks") ||
+        pathname.startsWith("/settings");
 
-      if (isDashboard) {
+      if (isProtected) {
         return isLoggedIn;
       }
 

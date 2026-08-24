@@ -117,6 +117,46 @@ Then test:
 - Protected `/dashboard` workspace shell
 - Session-aware landing page navigation
 
+## Week 3 — Admin Dashboard
+
+The admin area provides user management, analytics, and workspace settings for authorized administrators.
+
+### Admin routes
+
+| Route | Description |
+| ----- | ----------- |
+| `/admin` | Overview with KPIs, charts, and recent activity |
+| `/admin/users` | User management table with search, filters, and sorting |
+| `/admin/analytics` | Analytics with date range selector |
+| `/admin/settings` | Demo workspace settings |
+
+### Admin access configuration
+
+Admin access is controlled by the `ADMIN_EMAILS` environment variable (comma-separated list of allowed emails).
+
+```env
+ADMIN_EMAILS=you@example.com,another-admin@example.com
+```
+
+Add your Google account email to `ADMIN_EMAILS` in `.env.local` after signing in with OAuth.
+
+**Authenticated but not admin:** users see a polished access denied page with a link back to `/dashboard`.
+
+**Unauthenticated:** users are redirected to `/auth/signin`.
+
+### Week 3 scope
+
+- Admin dashboard shell with sidebar and top navigation
+- KPI overview cards with demo metrics
+- SVG-based analytics charts (no heavy charting library)
+- User management UI with search, filters, sorting, pagination, profile drawer
+- Demo settings stored in local component state only
+
+### Preserved from earlier weeks
+
+- Week 1 landing page (`/`)
+- Week 2 authentication (`/auth/signin`, `/dashboard`, Google OAuth)
+
 ## Not Included Yet
 
-Week 3 admin dashboard, database-backed projects/tasks, analytics, and admin user management are intentionally not implemented.
+Database-backed admin mutations, production role management APIs, and Week 4 features are intentionally not implemented.

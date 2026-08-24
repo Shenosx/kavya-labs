@@ -1,9 +1,9 @@
 import { auth } from "@/auth";
 
 const summaryCards = [
-  { label: "Active projects", value: "6", id: "projects" },
-  { label: "Open tasks", value: "18", id: "tasks" },
-  { label: "Completed tasks", value: "42", id: "completed" },
+  { label: "Active projects", value: "6" },
+  { label: "Open tasks", value: "18" },
+  { label: "Completed tasks", value: "42" },
 ];
 
 const recentActivity = [
@@ -54,10 +54,7 @@ export default async function DashboardPage() {
         <ul className="grid gap-4 sm:grid-cols-3">
           {summaryCards.map((card) => (
             <li key={card.label}>
-              <article
-                id={card.id}
-                className="rounded-xl border border-border bg-surface-elevated/40 p-5 transition-all duration-300 hover:border-accent/25 hover:bg-surface-elevated/70 hover:shadow-soft"
-              >
+              <article className="rounded-xl border border-border bg-surface-elevated/40 p-5 transition-all duration-300 hover:border-accent/25 hover:bg-surface-elevated/70 hover:shadow-soft">
                 <p className="text-sm text-muted">{card.label}</p>
                 <p className="mt-2 text-3xl font-semibold tracking-tight text-foreground">
                   {card.value}
@@ -68,7 +65,7 @@ export default async function DashboardPage() {
         </ul>
       </section>
 
-      <section aria-labelledby="activity-heading" id="settings">
+      <section aria-labelledby="activity-heading">
         <h2
           id="activity-heading"
           className="text-lg font-semibold tracking-tight text-foreground"

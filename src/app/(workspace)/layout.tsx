@@ -3,11 +3,11 @@ import { redirect } from "next/navigation";
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
 
 export const metadata = {
-  title: "Dashboard — Kavya Labs",
+  title: "Workspace — Kavya Labs",
   description: "Your Kavya Labs workspace.",
 };
 
-export default async function DashboardLayout({
+export default async function WorkspaceLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -18,7 +18,5 @@ export default async function DashboardLayout({
     redirect("/auth/signin");
   }
 
-  return (
-    <DashboardShell user={session.user}>{children}</DashboardShell>
-  );
+  return <DashboardShell user={session.user}>{children}</DashboardShell>;
 }

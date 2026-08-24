@@ -11,4 +11,5 @@ export type NavbarSession = {
 export const AUTH_ROUTES = {
   signIn: "/auth/signin",
   dashboard: "/dashboard",
+  admin: "/admin",
 } as const;
