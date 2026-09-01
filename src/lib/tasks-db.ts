@@ -1,7 +1,7 @@
 import { DEMO_TASKS } from "@/lib/workspace-data";
 import type { TaskPriority, TaskStatus } from "@/lib/workspace-data";
 import { normalizeTaskDueDate } from "@/lib/workspace-data";
-import { getSql, queryFirstRow, queryRows } from "@/lib/db";
+import { getSql, ensureSchema, queryFirstRow, queryRows } from "@/lib/db";
 import {
   countActiveProjectsForUser,
   ensureProjectsSeeded,
@@ -98,6 +98,7 @@ function mapTaskRow(row: TaskRow): TaskRecord {
 }
 
 export async function countTasksForUser(userId: string): Promise<number> {
+  await ensureSchema();
   const sql = getSql();
   const rows = await sql`
     SELECT COUNT(*)::int AS count
@@ -108,6 +109,7 @@ export async function countTasksForUser(userId: string): Promise<number> {
 }
 
 export async function seedDemoTasksForUser(userId: string): Promise<void> {
+  await ensureSchema();
   const sql = getSql();
 
   for (const task of DEMO_TASKS) {
@@ -135,6 +137,7 @@ export async function seedDemoTasksForUser(userId: string): Promise<void> {
 }
 
 export async function listTasksForUser(userId: string): Promise<TaskRecord[]> {
+  await ensureSchema();
   const sql = getSql();
 
   const rows = await sql`
@@ -168,6 +171,7 @@ export async function createTaskForUser(
   userId: string,
   input: CreateTaskInput
 ): Promise<TaskRecord> {
+  await ensureSchema();
   const sql = getSql();
 
   const rows = await sql`
@@ -209,6 +213,7 @@ export async function updateTaskForUser(
   taskId: string,
   input: UpdateTaskInput
 ): Promise<TaskRecord | null> {
+  await ensureSchema();
   const sql = getSql();
 
   const existingRows = queryRows<TaskRow>(
@@ -281,6 +286,7 @@ export async function deleteTaskForUser(
   userId: string,
   taskId: string
 ): Promise<boolean> {
+  await ensureSchema();
   const sql = getSql();
 
   const rows = await sql`

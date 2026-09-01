@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { requireAuthenticatedUser } from "@/lib/auth-user";
+import { ensureSchema } from "@/lib/db";
 import {
   deleteTaskForUser,
   isValidDueDate,
@@ -24,6 +25,8 @@ export async function PATCH(request: Request, context: RouteContext) {
     if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
+
+    await ensureSchema();
 
     const { id } = await context.params;
     const body = await request.json();
@@ -104,9 +107,11 @@ export async function PATCH(request: Request, context: RouteContext) {
     }
 
     revalidatePath("/dashboard");
+    revalidatePath("/tasks");
 
     return NextResponse.json({ task });
-  } catch {
+  } catch (error) {
+    console.error("PATCH /api/tasks/[id] failed:", error);
     return serverError();
   }
 }
@@ -118,6 +123,8 @@ export async function DELETE(_request: Request, context: RouteContext) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    await ensureSchema();
+
     const { id } = await context.params;
     const deleted = await deleteTaskForUser(user.id, id);
 
@@ -126,9 +133,11 @@ export async function DELETE(_request: Request, context: RouteContext) {
     }
 
     revalidatePath("/dashboard");
+    revalidatePath("/tasks");
 
     return NextResponse.json({ success: true });
-  } catch {
+  } catch (error) {
+    console.error("DELETE /api/tasks/[id] failed:", error);
     return serverError();
   }
 }

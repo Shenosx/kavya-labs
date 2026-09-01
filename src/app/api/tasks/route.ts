@@ -1,12 +1,15 @@
 import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { requireAuthenticatedUser } from "@/lib/auth-user";
+import { ensureSchema } from "@/lib/db";
 import {
+  countTasksForUser,
   createTaskForUser,
-  getTasksForUserWithSeed,
   isValidDueDate,
   isValidPriority,
   isValidStatus,
+  listTasksForUser,
+  seedDemoTasksForUser,
 } from "@/lib/tasks-db";
 
 function serverError() {
@@ -20,9 +23,17 @@ export async function GET() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const tasks = await getTasksForUserWithSeed(user.id);
+    await ensureSchema();
+
+    const taskCount = await countTasksForUser(user.id);
+    if (taskCount === 0) {
+      await seedDemoTasksForUser(user.id);
+    }
+
+    const tasks = await listTasksForUser(user.id);
     return NextResponse.json({ tasks });
-  } catch {
+  } catch (error) {
+    console.error("GET /api/tasks failed:", error);
     return serverError();
   }
 }
@@ -33,6 +44,8 @@ export async function POST(request: Request) {
     if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
+
+    await ensureSchema();
 
     const body = await request.json();
     const title = typeof body.title === "string" ? body.title.trim() : "";
@@ -79,6 +92,7 @@ export async function POST(request: Request) {
     });
 
     revalidatePath("/dashboard");
+    revalidatePath("/tasks");
 
     return NextResponse.json({ task }, { status: 201 });
   } catch (error) {

@@ -29,6 +29,61 @@ const defaultCreateForm = (): CreateTaskPayload => ({
   assignee: "",
 });
 
+function TasksLoadingSkeleton() {
+  return (
+    <div
+      role="status"
+      aria-label="Loading tasks"
+      className="space-y-3"
+    >
+      <p className="sr-only">Loading tasks...</p>
+      <div className="flex items-center justify-center gap-3 rounded-xl border border-border bg-surface-elevated/30 px-6 py-8">
+        <span
+          aria-hidden="true"
+          className="inline-block h-5 w-5 animate-spin rounded-full border-2 border-muted border-t-accent"
+        />
+        <p className="text-sm text-muted">Loading tasks...</p>
+      </div>
+      {[0, 1, 2].map((index) => (
+        <div
+          key={index}
+          aria-hidden="true"
+          className="animate-pulse rounded-xl border border-border bg-surface-elevated/30 px-5 py-4"
+        >
+          <div className="flex items-center gap-4">
+            <div className="h-4 w-4 rounded bg-surface-elevated" />
+            <div className="flex-1 space-y-2">
+              <div className="h-4 w-2/5 rounded bg-surface-elevated" />
+              <div className="h-3 w-1/4 rounded bg-surface-elevated" />
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function TaskDeleteButton({
+  task,
+  disabled,
+  onDelete,
+}: {
+  task: Task;
+  disabled?: boolean;
+  onDelete: (task: Task) => void;
+}) {
+  return (
+    <Button
+      variant="ghost"
+      size="sm"
+      disabled={disabled}
+      className="text-red-300 hover:text-red-200"
+      onClick={() => onDelete(task)}
+    >
+      Delete
+    </Button>
+  );
+}
 function TaskActionsMenu({
   onDelete,
   disabled,
@@ -343,7 +398,7 @@ export function TasksView() {
       const data = (await response.json()) as { tasks: Task[] };
       setTasks(data.tasks);
     } catch {
-      setError("Unable to load tasks. Please refresh and try again.");
+      setError("Unable to load tasks. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -598,6 +653,7 @@ export function TasksView() {
     try {
       const response = await fetch(`/api/tasks/${deleteTarget.id}`, {
         method: "DELETE",
+        credentials: "same-origin",
       });
 
       if (!response.ok) {
@@ -729,10 +785,17 @@ export function TasksView() {
         <div>{renderStatusControl(task)}</div>
         <div>{renderDueDateControl(task)}</div>
         <div>{renderAssigneeControl(task)}</div>
-        <TaskActionsMenu
-          disabled={deleting || updatingIds.has(task.id)}
-          onDelete={() => setDeleteTarget(task)}
-        />
+        <div className="flex items-center gap-1">
+          <TaskDeleteButton
+            task={task}
+            disabled={deleting || updatingIds.has(task.id)}
+            onDelete={setDeleteTarget}
+          />
+          <TaskActionsMenu
+            disabled={deleting || updatingIds.has(task.id)}
+            onDelete={() => setDeleteTarget(task)}
+          />
+        </div>
       </div>
     </article>
   );
@@ -753,10 +816,17 @@ export function TasksView() {
             <p className="mt-1 text-xs text-muted">{task.project}</p>
           </div>
         </div>
-        <TaskActionsMenu
-          disabled={deleting || updatingIds.has(task.id)}
-          onDelete={() => setDeleteTarget(task)}
-        />
+        <div className="flex items-center gap-1">
+          <TaskDeleteButton
+            task={task}
+            disabled={deleting || updatingIds.has(task.id)}
+            onDelete={setDeleteTarget}
+          />
+          <TaskActionsMenu
+            disabled={deleting || updatingIds.has(task.id)}
+            onDelete={() => setDeleteTarget(task)}
+          />
+        </div>
       </div>
       <div className="mt-3 flex flex-wrap items-center gap-2">
         {renderPriorityControl(task)}
@@ -833,16 +903,17 @@ export function TasksView() {
       </div>
 
       {loading ? (
-        <div className="rounded-xl border border-border bg-surface-elevated/30 px-6 py-12 text-center">
-          <p className="text-sm text-muted">Loading tasks...</p>
-        </div>
+        <TasksLoadingSkeleton />
       ) : error ? (
-        <div className="rounded-xl border border-border bg-surface-elevated/30 px-6 py-12 text-center">
-          <h2 className="text-base font-semibold text-foreground">Something went wrong</h2>
+        <div
+          role="alert"
+          className="rounded-xl border border-red-500/30 bg-red-500/5 px-6 py-12 text-center"
+        >
+          <h2 className="text-base font-semibold text-foreground">Unable to load tasks</h2>
           <p className="mt-2 text-sm text-muted">{error}</p>
           <div className="mt-4">
             <Button variant="secondary" onClick={() => void loadTasks()}>
-              Try again
+              Retry
             </Button>
           </div>
         </div>
